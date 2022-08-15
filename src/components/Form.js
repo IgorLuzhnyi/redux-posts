@@ -18,7 +18,7 @@ class Form extends Component {
       },
       content: "",
       image: "",
-      date: "Feb 28",
+      date: `${new Date().toLocaleDateString()}`,
       reactions: {
         comments: {
           amount: getRandomNumber(100, 1200),
@@ -66,14 +66,14 @@ class Form extends Component {
     });
 
   onSubmitInput = () => {
-    if (this.state.post.content) {
+    if (this.state.post.content && this.state.post.image) {
       this.props.addPost(this.state.post);
       this.setState({
         post: {
           author: { ...this.state.post }.author,
           content: "",
           image: "",
-          date: "Feb 27",
+          date: `${new Date().toLocaleDateString()}`,
           reactions: {
             comments: {
               amount: getRandomNumber(100, 1200),
@@ -108,7 +108,7 @@ class Form extends Component {
               <select
                 name="authors"
                 id="authors"
-                onChange={(e) => this.onChangeAuthor(e)}
+                onChange={this.onChangeAuthor}
               >
                 <option value="0">Anakin</option>
                 <option value="1">Ray</option>
@@ -123,7 +123,7 @@ class Form extends Component {
             rows="3"
             id="form-message"
             value={this.state.post.content}
-            onChange={(e) => this.onChangeMessage(e)}
+            onChange={this.onChangeMessage}
             placeholder="Write your post here"
           />
         </div>
@@ -131,9 +131,10 @@ class Form extends Component {
           <input
             type="text"
             placeholder="image url..."
+            required
             id="form-img-path"
             value={this.state.post.image}
-            onChange={(e) => this.onChangeImgUrl(e)}
+            onChange={this.onChangeImgUrl}
           />
         </div>
         <button onClick={this.onSubmitInput} className="add_post">

@@ -12,7 +12,7 @@ const initState = [
     content: "@dart_vader Grandpa, I am Skywalker too! But I am not Luke's!!!",
     image:
       "https://i.pinimg.com/originals/7d/17/3b/7d173b3c37f25d84bbe93149af986549.jpg",
-    date: "Feb 27",
+    date: "8/12/2022",
     reactions: {
       comments: {
         amount: 805,
@@ -43,7 +43,7 @@ const initState = [
       "@dart_vader I thought we got rig of you lol. Btw, where to find Luke??",
     image:
       "https://howardwilliamsblog.files.wordpress.com/2015/12/darth-vader-mask.jpg?w=640",
-    date: "Feb 27",
+    date: "8/11/2022",
     reactions: {
       comments: {
         amount: 324,
@@ -73,7 +73,7 @@ const initState = [
     content: "WTF? Who is Ray? Why she is Skywalker? Luke...?",
     image:
       "https://specials-images.forbesimg.com/imageserve/5e63b3c8e1e617000759130e/960x0.jpg?fit=scale",
-    date: "Feb 26",
+    date: "8/9/2022",
     reactions: {
       comments: {
         amount: 482,
