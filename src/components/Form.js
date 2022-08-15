@@ -66,7 +66,7 @@ class Form extends Component {
     });
 
   onSubmitInput = () => {
-    if (this.state.post.content && this.state.post.image) {
+    if (this.state.post.content) {
       this.props.addPost(this.state.post);
       this.setState({
         post: {
@@ -131,7 +131,6 @@ class Form extends Component {
           <input
             type="text"
             placeholder="image url..."
-            required
             id="form-img-path"
             value={this.state.post.image}
             onChange={this.onChangeImgUrl}
