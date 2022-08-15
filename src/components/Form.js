@@ -2,6 +2,10 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { addPost } from "../redux/actions";
 import { authors } from "../constants/constants";
+import {
+  getRandomNumber,
+  getRandomId,
+} from "../helper-functions/helper-functions";
 
 class Form extends Component {
   state = {
@@ -16,10 +20,23 @@ class Form extends Component {
       image: "",
       date: "Feb 28",
       reactions: {
-        comments: 500,
-        shares: 600,
-        likes: 700,
+        comments: {
+          amount: getRandomNumber(100, 1200),
+          clicked: false,
+          activeClr: "#43ADEB",
+        },
+        shares: {
+          amount: getRandomNumber(100, 900),
+          clicked: false,
+          activeClr: "#2EE046",
+        },
+        likes: {
+          amount: getRandomNumber(100, 2500),
+          clicked: false,
+          activeClr: "#E43E3E",
+        },
       },
+      id: getRandomId(),
     },
   };
 
@@ -58,10 +75,23 @@ class Form extends Component {
           image: "",
           date: "Feb 27",
           reactions: {
-            comments: 805,
-            shares: 1318,
-            likes: 2608,
+            comments: {
+              amount: getRandomNumber(100, 1200),
+              clicked: false,
+              activeClr: "#43ADEB",
+            },
+            shares: {
+              amount: getRandomNumber(100, 900),
+              clicked: false,
+              activeClr: "#2EE046",
+            },
+            likes: {
+              amount: getRandomNumber(100, 2500),
+              clicked: false,
+              activeClr: "#E43E3E",
+            },
           },
+          id: getRandomId(),
         },
       });
     }
@@ -71,21 +101,26 @@ class Form extends Component {
     return (
       <div className="form-container">
         <div className="author">
-          <label htmlFor="authors">Author: </label>
-          <select
-            name="authors"
-            id="authors"
-            onChange={(e) => this.onChangeAuthor(e)}
-          >
-            <option value="0">Anakin</option>
-            <option value="1">Ray</option>
-            <option value="2">Kylo</option>
-            <option value="3">Luke</option>
-          </select>
+          <div className="select-container">
+            <h4>Add post:</h4>
+            <div>
+              <label htmlFor="authors">Author </label>
+              <select
+                name="authors"
+                id="authors"
+                onChange={(e) => this.onChangeAuthor(e)}
+              >
+                <option value="0">Anakin</option>
+                <option value="1">Ray</option>
+                <option value="2">Kylo</option>
+                <option value="3">Luke</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div className="form-message-container">
           <textarea
-            rows="2"
+            rows="3"
             id="form-message"
             value={this.state.post.content}
             onChange={(e) => this.onChangeMessage(e)}
@@ -95,7 +130,7 @@ class Form extends Component {
         <div className="form-img-container">
           <input
             type="text"
-            placeholder="Img URL"
+            placeholder="image url..."
             id="form-img-path"
             value={this.state.post.image}
             onChange={(e) => this.onChangeImgUrl(e)}

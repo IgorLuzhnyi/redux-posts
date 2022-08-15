@@ -4,18 +4,33 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import { MdOutlineIosShare } from "react-icons/md";
+import { updUI } from "../redux/actions";
 
 class Posts extends Component {
   render() {
     const { posts } = this.props.posts;
 
-    const postList = posts.map((post, i) => {
-      const { author, content, image, date, reactions } = post;
+    const postList = posts.map((post) => {
+      const { author, content, image, date, reactions, id } = post;
       const { photo, name, nickname } = author;
       const { comments, shares, likes } = reactions;
 
+      const handleCLick = (e, reaction) => {
+        if (reaction.clicked) {
+          reaction.clicked = false;
+          e.target.closest("p").style.color = "#fff";
+          reaction.amount--;
+        } else {
+          reaction.clicked = true;
+          e.target.closest("p").style.color = reaction.activeClr;
+          reaction.amount++;
+        }
+
+        this.props.updUI(); // passing updated post
+      };
+
       return (
-        <div className="post" key={i}>
+        <div className="post" key={id}>
           <div className="sw-post">
             <img className="author-avatar" src={photo} alt="author-avatar" />
             <div className="sw-post__container">
@@ -29,25 +44,39 @@ class Posts extends Component {
               <img className="content-image" src={image} />
               <div className="sw-post--actions">
                 <p className="sw-action-icon">
-                  <span className="sw-icon" id="sw-icon__comment">
+                  <span
+                    className="sw-icon"
+                    onClick={(e) => handleCLick(e, comments)}
+                  >
                     <AiOutlineComment />
                   </span>
-                  {comments}
+                  {comments.amount}
                 </p>
                 <p className="sw-action-icon">
-                  <span className="sw-icon" id="sw-icon__share">
+                  <span
+                    className="sw-icon"
+                    onClick={(e) => handleCLick(e, shares)}
+                  >
                     <AiOutlineShareAlt />
                   </span>
-                  {shares}
+                  {shares.amount}
                 </p>
                 <p className="sw-action-icon">
-                  <span className="sw-icon" id="sw-icon__like">
+                  <span
+                    className="sw-icon"
+                    onClick={(e) => handleCLick(e, likes)}
+                  >
                     <AiOutlineHeart />
                   </span>
-                  {likes}
+                  {likes.amount}
                 </p>
                 <p className="sw-action-icon">
-                  <span className="sw-icon" id="sw-icon__send">
+                  <span
+                    className="sw-icon"
+                    onClick={() => {
+                      alert("'Send' option is not available yet :)");
+                    }}
+                  >
                     <MdOutlineIosShare />
                   </span>
                 </p>
@@ -64,8 +93,14 @@ class Posts extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    posts: state, // this is where we pass the state. presumably
+    posts: state,
   };
 };
 
-export default connect(mapStateToProps, null)(Posts);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updUI: () => dispatch(updUI()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);
