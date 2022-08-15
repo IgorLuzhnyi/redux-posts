@@ -26,8 +26,10 @@ class Posts extends Component {
           reaction.amount++;
         }
 
-        this.props.updUI(); // passing updated post
+        this.props.updUI();
       };
+
+      const handleError = (e) => (e.target.style.display = "none");
 
       return (
         <div className="post" key={id}>
@@ -41,7 +43,11 @@ class Posts extends Component {
                 <div id="date">{date}</div>
               </div>
               <div className="sw-post__content">{content}</div>
-              <img className="content-image" src={image} />
+              <img
+                className="content-image"
+                src={image}
+                onError={handleError}
+              />
               <div className="sw-post--actions">
                 <p className="sw-action-icon">
                   <span
